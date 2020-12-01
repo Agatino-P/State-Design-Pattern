@@ -14,24 +14,31 @@ namespace State_Design_Pattern.Logic
         public int TicketCount { get; set; }
         public int BookingID { get; set; }
 
+        private BookingState _currentState;
+        private void transitionToState(BookingState newBookingState)
+        {
+            _currentState = newBookingState;
+            _currentState.EnterState(this);
+        }
         public BookingContext(MainWindow view)
         {
             View = view;
+            transitionToState(new NewState());
         }
 
         public void SubmitDetails(string attendee, int ticketCount)
         {
-            
+            _currentState.EnterDetails(this, attendee, ticketCount);
         }
 
         public void Cancel()
         {
-            
+            _currentState.Cancel(this);
         }
 
         public void DatePassed()
         {
-           
+            _currentState.DatePassed(this);
         }
 
         public void ShowState(string stateName)
