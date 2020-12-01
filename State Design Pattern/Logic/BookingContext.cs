@@ -15,7 +15,7 @@ namespace State_Design_Pattern.Logic
         public int BookingID { get; set; }
 
         private BookingState _currentState;
-        private void transitionToState(BookingState newBookingState)
+        public void TransitionToState(BookingState newBookingState)
         {
             _currentState = newBookingState;
             _currentState.EnterState(this);
@@ -23,7 +23,7 @@ namespace State_Design_Pattern.Logic
         public BookingContext(MainWindow view)
         {
             View = view;
-            transitionToState(new NewState());
+            TransitionToState(new NewState());
         }
 
         public void SubmitDetails(string attendee, int ticketCount)
